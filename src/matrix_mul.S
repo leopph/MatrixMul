@@ -8,21 +8,17 @@
 .text
 .global matrix_mul
 matrix_mul:
-    # prologue
     push ebp
     mov ebp, esp
     
 
-    # nulling loop init
     mov ecx, 0
     mov edx, [ebp + 20]
     imul edx, [ebp + 20] # store N * N in edx
 NULLINGLOOP:
-    # test loop condition
     cmp ecx, edx
     jge ENDNULLING
 
-    # set matrix element to zero
     mov eax, [ebp + 16]
     mov dword ptr [eax + 4 * ecx], 0
     inc ecx
@@ -74,12 +70,15 @@ INNERLOOP:
     mov esi, [ebp - 4] # store i
     imul esi, [ebp + 20] # store i * N
     add esi, [ebp - 8] # store i * N + j
+
     mov edx, [ebp + 16] # store output
     mov edx, [edx + 4 * esi] # store output[i * N + j]
 
+
     add edx, eax # += assignment
     mov eax, [ebp + 16] # store output
-    mov [eax], edx # write result to output's memory
+    mov [eax + 4 * esi], edx # write result to output's memory
+
 
     pop ebx # restore ebx
     pop edi # restore edi
