@@ -1,6 +1,20 @@
+/*  DRIVER PROGRAM FOR MATRIX MULTIPLICATION
+    Löffler Levente
+    R1NO3R
+*/
+
 #include <stdio.h>
 
 void matrix_mul(int left[], int right[], int output[], int N);
+/*{
+    for (int i = 0; i < N * N; i++)
+        output[i] = 0;
+
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            for (int k = 0; k < N; k++)
+                output[i * N + j] += left[i * N + k] * right[k * N + j];
+}*/
 
 int main(void)
 {
@@ -19,4 +33,6 @@ int main(void)
 
         printf("\n");
     }
+
+    return 0;
 }
