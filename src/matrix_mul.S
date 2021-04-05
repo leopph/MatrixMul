@@ -42,47 +42,42 @@ INNERLOOP:
     cmp ecx, [ebp + 20]
     jge POSTMIDDLE
 
-    push esi # save esi
-    push edi # save edi
     push ebx # save ebx
 
 
-    mov esi, [ebp - 4] # store i
-    imul esi, [ebp + 20] # store i * N
-    add esi, ecx # store i * N + k
+    mov ebx, [ebp - 4] # store i
+    imul ebx, [ebp + 20] # store i * N
+    add ebx, ecx # store i * N + k
 
     mov eax, [ebp + 8] # store left
-    mov eax, [eax + 4 * esi] # store left[i * N + k]
+    mov eax, [eax + 4 * ebx] # store left[i * N + k]
 
 
-    mov esi, ecx # store k
-    imul esi, [ebp + 20] # store k * N
-    mov edi, [ebp - 8] # store j
-    add esi, edi # store k * N + j
+    mov ebx, ecx # store k
+    imul ebx, [ebp + 20] # store k * N
+    add ebx, [ebp - 8] # store k * N + j
 
     mov edx, [ebp + 12] # store right
-    mov edx, [edx + 4 * esi] # store right[k * N + j]
+    mov edx, [edx + 4 * ebx] # store right[k * N + j]
 
 
     imul eax, edx # store left[i * N + k] * right[k * N + j]
 
 
-    mov esi, [ebp - 4] # store i
-    imul esi, [ebp + 20] # store i * N
-    add esi, [ebp - 8] # store i * N + j
+    mov ebx, [ebp - 4] # store i
+    imul ebx, [ebp + 20] # store i * N
+    add ebx, [ebp - 8] # store i * N + j
 
     mov edx, [ebp + 16] # store output
-    mov edx, [edx + 4 * esi] # store output[i * N + j]
+    mov edx, [edx + 4 * ebx] # store output[i * N + j]
 
 
     add edx, eax # += assignment
     mov eax, [ebp + 16] # store output
-    mov [eax + 4 * esi], edx # write result to output's memory
+    mov [eax + 4 * ebx], edx # write result to output's memory
 
 
     pop ebx # restore ebx
-    pop edi # restore edi
-    pop esi # restore esi
 
     inc ecx
     jmp INNERLOOP

@@ -1,2 +1,2 @@
 mkdir bin
-gcc -m32 -static -o bin/run src/main.c src/matrix_mul.S
+gcc -m32 -Isrc/include -static -o bin/run src/main.c src/matrix_print.c src/matrix_mul.S
